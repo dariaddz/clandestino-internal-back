@@ -2,9 +2,12 @@ const express = require("express");
 const morgan = require("morgan");
 const got = require("got");
 const app = express();
+const cors = require("cors");
+
 require("dotenv").config();
 
 app.use(morgan("tiny"));
+app.use(cors());
 // app.use(router);
 
 // const { router } = require("./musicRouter");
