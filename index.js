@@ -22,21 +22,21 @@ app.get("/home", (req, res) => {
 
 app.get("/api/weather", async (req, res) => {
   try {
-    const { latitude, longtitude } = req.query;
+    // const { 41.018931130450326, 28.948780646709885 } = req.query;
 
-    if (!latitude) {
-      return res.status(400).json({ message: "latitude field is mandatory" });
-    }
+    // if (!latitude) {
+    //   return res.status(400).json({ message: "latitude field is mandatory" });
+    // }
 
-    if (!longtitude) {
-      return res.status(400).json({ message: "longtitude field is mandatory" });
-    }
+    // if (!longtitude) {
+    //   return res.status(400).json({ message: "longtitude field is mandatory" });
+    // }
 
     const response = await got(BASE_URL, {
       searchParams: {
         key: KEY,
-        lat: latitude,
-        lon: longtitude,
+        lat: 41.018931130450326,
+        lon: 28.948780646709885,
       },
 
       responseType: "json",
