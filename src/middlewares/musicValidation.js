@@ -1,4 +1,4 @@
-const Joi = require("joi");
+const Joi = require('joi');
 
 module.exports = {
   addMusicValidation: (req, res, next) => {
@@ -12,7 +12,7 @@ module.exports = {
 
     const validationRes = schema.validate(req.body);
     if (validationRes.error) {
-      return res.status(400).json({ status: validationRes.error.details });
+      return res.status(400).json({status: validationRes.error.details});
     }
     next();
   },
@@ -27,7 +27,7 @@ module.exports = {
 
     const validationRes = schema.validate(req.body);
     if (validationRes.error) {
-      return res.status(400).json({ status: validationRes.error.details });
+      return res.status(400).json({status: validationRes.error.details});
     }
     next();
   },
