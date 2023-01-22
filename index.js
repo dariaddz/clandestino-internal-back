@@ -3,7 +3,7 @@ const morgan = require("morgan");
 
 const app = express();
 require("dotenv").config();
-const { musicRouter } = require("./routers/musicRouter");
+const { musicRouter } = require("./src/routers/musicRouter");
 
 app.use(morgan("tiny"));
 app.use(express.json());
