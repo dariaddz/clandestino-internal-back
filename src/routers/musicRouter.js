@@ -1,37 +1,30 @@
-const express = require('express');
+const express = require("express");
 const router = new express.Router();
 
 const {
   addMusicValidation,
-  patchMusicValidation,
-} = require('../middlewares/musicValidation');
+  changeMusicValidation,
+} = require("../middlewares/musicValidation");
+
+const modelsMiddleware = require("../middlewares/models");
+
+const { asyncWrapper } = require("../helpers/apiHelpers");
+// заменяет try catch в async функциях
 
 const {
   getMusic,
   getMusicItemById,
   addMusicItem,
   changeMusicItem,
-  patchMusicItem,
   deleteMusicItem,
-} = require('../controllers/musicControllers');
+} = require("../controllers/musicControllers");
 
-// GET /api/music   = [...music]
+router.use(modelsMiddleware);
 
-router.get('/', getMusic);
+router.get("/", asyncWrapper(getMusic));
+router.get("/:id", asyncWrapper(getMusicItemById));
+router.post("/", addMusicValidation, asyncWrapper(addMusicItem));
+router.put("/:id", changeMusicValidation, asyncWrapper(changeMusicItem));
+router.delete("/:id", asyncWrapper(deleteMusicItem));
 
-// GET /api/music/<6178653131>   = {musicItem with id=6178653131}
-router.get('/:id', getMusicItemById);
-
-// POST /api/music/   = {newMusicItem, ...music}
-router.post('/', addMusicValidation, addMusicItem);
-
-// PUT /api/music/<6178653131>   = {changedwMusicItem, ...music}
-router.put('/:id', addMusicValidation, changeMusicItem);
-
-// PATCH /api/music/<6178653131>   = {changedwMusicItem, ...music}
-router.patch('/:id', patchMusicValidation, patchMusicItem);
-
-// DELETE /api/music/<6178653131>   = { ...music}
-deleteMusicItem, router.delete('/:id', deleteMusicItem);
-
-module.exports = {musicRouter: router};
+module.exports = { musicRouter: router };
