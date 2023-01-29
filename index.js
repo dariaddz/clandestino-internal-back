@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 8090;
 require("dotenv").config();
 
 const { musicRouter } = require("./src/routers/musicRouter");
+const { errorHandler } = require("./src/helpers/apiHelpers");
 const { connectMongo } = require("./src/db/connections");
 const { json } = require("express");
 
@@ -15,9 +16,7 @@ app.use(express.json());
 app.use("/api/music", musicRouter);
 
 // обработчик ошибок
-app.use((error, req, res, next) => {
-  res.status(500).json({ message: error.message });
-});
+app.use(errorHandler);
 
 const start = async () => {
   try {

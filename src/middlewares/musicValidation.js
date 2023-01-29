@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { ValidationError } = require("../helpers/errors");
 
 module.exports = {
   addMusicValidation: (req, res, next) => {
@@ -27,7 +28,7 @@ module.exports = {
 
     const validationRes = schema.validate(req.body);
     if (validationRes.error) {
-      return res.status(400).json({ status: validationRes.error.details });
+      next(new ValidationError(validationRes.error.details));
     }
     next();
   },
