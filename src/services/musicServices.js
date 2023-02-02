@@ -1,8 +1,12 @@
 const { MusicModel } = require("../db/musicModel");
 const { InvalidParameterError } = require("../helpers/errors");
 
-const getMusic = async () => {
-  const music = await MusicModel.find({});
+const getMusic = async ({ skip, limit }) => {
+  const music = await MusicModel.find()
+    .select({ __v: 0, userId: 0 })
+    .skip(skip)
+    .limit(limit)
+    .sort("musicName");
   return music;
 };
 

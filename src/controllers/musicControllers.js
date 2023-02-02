@@ -8,8 +8,12 @@ const {
 
 // GET
 const getMusicController = async (req, res) => {
-  const music = await getMusic();
-  res.json({ music, status: "success" });
+  let { skip = 0, limit = 6 } = req.query;
+  limit = parseInt(limit) > 6 ? 6 : parseInt(limit);
+  skip = parseInt(skip);
+  const music = await getMusic({ skip, limit });
+
+  res.json({ music, skip, limit });
 };
 
 // GET by ID
