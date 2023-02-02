@@ -1,5 +1,3 @@
-// const ObjectId = require("mongodb").ObjectId;
-
 const {
   getMusic,
   getMusicItemById,
@@ -23,29 +21,36 @@ const getMusicItemByIdController = async (req, res) => {
 
 // POST
 const addMusicItemController = async (req, res) => {
-  const { musicName, video, audio, notes } = req.body;
-
-  await addMusicItem({ musicName, archive, video, audio, notes });
+  const { musicName, archive, video, audio, notes } = req.body;
+  const { _id } = req.user;
+  console.log("_id", _id);
+  await addMusicItem({ musicName, archive, video, audio, notes }, _id);
 
   res.json({ status: "success" });
 };
 
 // PUT by ID
 const changeMusicItemController = async (req, res) => {
-  const { id } = req.params;
-
+  const { id: musicId } = req.params;
+  const { _id: userId } = req.user;
   const { archive, musicName, video, audio, notes } = req.body;
 
-  await changeMusicItem(id, { archive, musicName, video, audio, notes });
+  await changeMusicItem(musicId, {
+    archive,
+    musicName,
+    video,
+    audio,
+    notes,
+  });
 
   res.json({ status: "success" });
 };
 
 // DELETE by ID
 const deleteMusicItemController = async (req, res) => {
-  const { id } = req.params;
-
-  await deleteMusicItem(id);
+  const { id: musicId } = req.params;
+  const { _id: userId } = req.user;
+  await deleteMusicItem(musicId, userId);
 
   res.json({ status: "success" });
 };

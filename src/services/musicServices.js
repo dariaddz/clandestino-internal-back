@@ -16,29 +16,38 @@ const getMusicItemById = async (id) => {
   return musicItem;
 };
 
-const addMusicItem = async ({ musicName, archive, video, audio, notes }) => {
+const addMusicItem = async (
+  { musicName, archive, video, audio, notes },
+  userId
+) => {
+  console.log("userId", userId);
   const musicItem = new MusicModel({
     musicName,
     archive: false,
     video,
     audio,
     notes,
+    userId,
   });
 
   await musicItem.save();
 };
 
 const changeMusicItem = async (
-  id,
-  { archive, musicName, video, audio, notes }
+  musicId,
+  { archive, musicName, video, audio, notes },
+  userId
 ) => {
-  await MusicModel.findByIdAndUpdate(id, {
-    $set: { archive, musicName, video, audio, notes },
-  });
+  await MusicModel.findOneAndUpdate(
+    { _id: musicId, userId },
+    {
+      $set: { archive, musicName, video, audio, notes },
+    }
+  );
 };
 
-const deleteMusicItem = async (id) => {
-  await MusicModel.findByIdAndRemove(id);
+const deleteMusicItem = async (musicId, userId) => {
+  await MusicModel.findOneAndRemove({ _id: musicId, userId });
 };
 
 module.exports = {

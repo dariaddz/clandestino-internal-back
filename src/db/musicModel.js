@@ -10,6 +10,7 @@ const musicSchema = new mongoose.Schema({
   video: { type: Array, required: true },
   audio: { type: Array, required: true },
   notes: { type: Array, required: true },
+  userId: String,
 });
 
 const MusicModel = mongoose.model("MusicModel", musicSchema);

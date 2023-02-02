@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 8090;
 require("dotenv").config();
 
 const { musicRouter } = require("./src/routers/musicRouter");
+const { authRouter } = require("./src/routers/authRouter");
+
 const { errorHandler } = require("./src/helpers/apiHelpers");
 const { connectMongo } = require("./src/db/connections");
 const { json } = require("express");
@@ -14,6 +16,7 @@ const { json } = require("express");
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use("/api/music", musicRouter);
+app.use("/api/auth", authRouter);
 
 // обработчик ошибок
 app.use(errorHandler);

@@ -1,4 +1,4 @@
-const { ValidationError, InvalidParameterError } = require("./errors");
+const { ClandestinoInternalError } = require("./errors");
 
 // заменяет try catch в async функциях
 
@@ -10,10 +10,7 @@ const asyncWrapper = (controller) => {
 
 // отлавливает  ошибки
 const errorHandler = (error, req, res, next) => {
-  if (
-    error instanceof ValidationError ||
-    error instanceof InvalidParameterError
-  ) {
+  if (error instanceof ClandestinoInternalError) {
     return res.status(error.status).json({ message: error.message });
   }
 

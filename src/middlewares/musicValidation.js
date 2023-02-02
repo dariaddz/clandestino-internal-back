@@ -20,6 +20,7 @@ module.exports = {
 
   changeMusicValidation: (req, res, next) => {
     const schema = Joi.object({
+      musicName: Joi.string().alphanum().min(3).max(30).optional(),
       archive: Joi.boolean().optional(),
       video: Joi.array().items(Joi.string()).optional(),
       audio: Joi.array().items(Joi.string()).optional(),
@@ -28,7 +29,7 @@ module.exports = {
 
     const validationRes = schema.validate(req.body);
     if (validationRes.error) {
-      next(new ValidationError(validationRes.error.details));
+      next(new ValidationError(JSON.stringify(validationRes.error.details)));
     }
     next();
   },
