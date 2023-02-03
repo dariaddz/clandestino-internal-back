@@ -18,7 +18,7 @@ const {
   deleteMusicItemController,
 } = require("../controllers/musicControllers");
 
-// router.use(authMiddleware);
+router.use(authMiddleware);
 
 router.get("/", asyncWrapper(getMusicController));
 router.get("/:id", asyncWrapper(getMusicItemByIdController));

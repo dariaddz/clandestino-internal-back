@@ -1,4 +1,5 @@
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const { UserModel } = require("../db/userModel");
@@ -20,7 +21,7 @@ const login = async (name, password) => {
     throw new NotAuthorisedError(`No user named ${name} found`);
   }
 
-  if (!(await bcrypt.compare(password, user.password))) {
+  if (!(await bcryptjs.compare(password, user.password))) {
     throw new NotAuthorisedError("Wrong password");
   }
 
