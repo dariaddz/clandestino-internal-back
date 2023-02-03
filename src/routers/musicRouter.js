@@ -18,12 +18,12 @@ const {
   deleteMusicItemController,
 } = require("../controllers/musicControllers");
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 router.get("/", asyncWrapper(getMusicController));
 router.get("/:id", asyncWrapper(getMusicItemByIdController));
 router.post("/", addMusicValidation, asyncWrapper(addMusicItemController));
-router.put(
+router.patch(
   "/:id",
   changeMusicValidation,
   asyncWrapper(changeMusicItemController)

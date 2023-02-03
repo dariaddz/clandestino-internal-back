@@ -8,8 +8,8 @@ const {
 
 // GET
 const getMusicController = async (req, res) => {
-  let { skip = 0, limit = 6 } = req.query;
-  limit = parseInt(limit) > 6 ? 6 : parseInt(limit);
+  let { skip = 0, limit = 15 } = req.query;
+  limit = parseInt(limit) > 15 ? 6 : parseInt(limit);
   skip = parseInt(skip);
   const music = await getMusic({ skip, limit });
 
@@ -33,19 +33,23 @@ const addMusicItemController = async (req, res) => {
   res.json({ status: "success" });
 };
 
-// PUT by ID
+// PATCH by ID
 const changeMusicItemController = async (req, res) => {
   const { id: musicId } = req.params;
   const { _id: userId } = req.user;
   const { archive, musicName, video, audio, notes } = req.body;
 
-  await changeMusicItem(musicId, {
-    archive,
-    musicName,
-    video,
-    audio,
-    notes,
-  });
+  await changeMusicItem(
+    musicId,
+    {
+      archive,
+      musicName,
+      video,
+      audio,
+      notes,
+    },
+    userId
+  );
 
   res.json({ status: "success" });
 };
