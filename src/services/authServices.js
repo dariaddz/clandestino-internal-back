@@ -6,19 +6,19 @@ const { UserModel } = require("../db/userModel");
 
 const { NotAuthorisedError } = require("../helpers/errors");
 
-const registration = async (name, password) => {
+const registration = async (userName, password) => {
   // const { name, password } = req.body;
   const user = new UserModel({
-    name,
+    userName,
     password,
   });
   await user.save();
 };
 
-const login = async (name, password) => {
-  const user = await UserModel.findOne({ name });
+const login = async (userName, password) => {
+  const user = await UserModel.findOne({ userName });
   if (!user) {
-    throw new NotAuthorisedError(`No user named ${name} found`);
+    throw new NotAuthorisedError(`No user named ${userName} found`);
   }
 
   if (!(await bcryptjs.compare(password, user.password))) {
@@ -30,7 +30,7 @@ const login = async (name, password) => {
     process.env.JWT_SECRET
   );
 
-  return token;
+  return { token, userName };
 };
 
 module.exports = {

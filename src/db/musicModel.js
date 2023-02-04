@@ -10,6 +10,7 @@ const musicSchema = new mongoose.Schema({
   video: { type: Array, required: true },
   audio: { type: Array, required: true },
   notes: { type: Array, required: true },
+  _id: String,
   userId: String,
 });
 
