@@ -8,10 +8,10 @@ const {
 
 // GET
 const getMusicController = async (req, res) => {
-  let { skip = 0, limit = 15 } = req.query;
-  limit = parseInt(limit) > 15 ? 6 : parseInt(limit);
-  skip = parseInt(skip);
-  const music = await getMusic({ skip, limit });
+  const { page = 1, limit = 6 } = req.query;
+  // limit = parseInt(limit) > 6 ? 6 : parseInt(limit);
+  const skip = (page - 1) * limit;
+  const music = await getMusic({ skip, limit: Number(limit) });
 
   res.json({ music, skip, limit });
 };

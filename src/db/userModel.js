@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   admin: { type: Boolean, required: true, default: false },
+  token: {
+    type: String,
+    default: null,
+  },
 });
 
 userSchema.pre("save", async function () {

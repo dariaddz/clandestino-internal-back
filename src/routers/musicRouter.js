@@ -22,12 +22,18 @@ const {
 
 router.get("/", asyncWrapper(getMusicController));
 router.get("/:id", asyncWrapper(getMusicItemByIdController));
-router.post("/", addMusicValidation, asyncWrapper(addMusicItemController));
+router.post(
+  "/",
+  authMiddleware,
+  addMusicValidation,
+  asyncWrapper(addMusicItemController)
+);
 router.patch(
   "/:id",
+  authMiddleware,
   changeMusicValidation,
   asyncWrapper(changeMusicItemController)
 );
-router.delete("/:id", asyncWrapper(deleteMusicItemController));
+router.delete("/:id", authMiddleware, asyncWrapper(deleteMusicItemController));
 
 module.exports = { musicRouter: router };
