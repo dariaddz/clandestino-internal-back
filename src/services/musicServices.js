@@ -14,24 +14,19 @@ const getMusicItemById = async (id) => {
   const musicItem = await MusicModel.findById(id);
 
   if (!musicItem) {
-    throw new InvalidParameterError("error, music item not found");
+    throw new InvalidParameterError(`error, music item ${id} not found`);
   }
 
   return musicItem;
 };
 
-const addMusicItem = async (
-  { musicName, archive, video, audio, notes },
-  userId
-) => {
-  console.log("userId", userId);
+const addMusicItem = async ({ musicName, archive, video, audio, notes }) => {
   const musicItem = new MusicModel({
     musicName,
     archive: false,
     video,
     audio,
     notes,
-    userId,
   });
 
   await musicItem.save();

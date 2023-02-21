@@ -19,6 +19,7 @@ const getMusicController = async (req, res) => {
 // GET by ID
 const getMusicItemByIdController = async (req, res) => {
   const { id } = req.params;
+
   const musicItem = await getMusicItemById(id);
   res.json({ musicItem, status: "success" });
 };
@@ -26,9 +27,12 @@ const getMusicItemByIdController = async (req, res) => {
 // POST
 const addMusicItemController = async (req, res) => {
   const { musicName, archive, video, audio, notes } = req.body;
-  const { _id } = req.user;
-  console.log("_id", _id);
-  await addMusicItem({ musicName, archive, video, audio, notes }, _id);
+  // const { _id } = req.user;
+  // console.log("_id", _id);
+  await addMusicItem(
+    { musicName, archive, video, audio, notes }
+    // , _id
+  );
 
   res.json({ status: "success" });
 };

@@ -38,7 +38,7 @@ const loginController = async (req, res) => {
 
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
   await UserModel.findByIdAndUpdate(user._id, { token });
-  res.json({ token });
+  res.json({ user });
 };
 
 const currentController = async (req, res) => {
