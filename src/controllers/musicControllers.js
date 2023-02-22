@@ -26,9 +26,12 @@ const getMusicItemByIdController = async (req, res) => {
 // POST
 const addMusicItemController = async (req, res) => {
   const { musicName, archive, video, audio, notes } = req.body;
-  const { _id } = req.user;
-  console.log("_id", _id);
-  await addMusicItem({ musicName, archive, video, audio, notes }, _id);
+  // const { _id } = req.user;
+  // console.log("_id", _id);
+  await addMusicItem(
+    { musicName, archive, video, audio, notes }
+    // _id
+  );
 
   res.json({ status: "success" });
 };

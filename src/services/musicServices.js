@@ -24,7 +24,7 @@ const addMusicItem = async (
   { musicName, archive, video, audio, notes },
   userId
 ) => {
-  console.log("userId", userId);
+  // console.log("userId", userId);
   const musicItem = new MusicModel({
     musicName,
     archive: false,
